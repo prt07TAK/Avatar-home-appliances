@@ -4,6 +4,7 @@
 
 import { initPage } from './components.js';
 import { getCart, removeFromCart, updateQuantity, getCartTotal, formatPrice } from './cart.js';
+import { getSession } from './auth.js';
 
 initPage();
 
@@ -61,13 +62,23 @@ function renderCart() {
       <span>Total</span>
       <span>${formatPrice(total)}</span>
     </div>
-    <a href="/checkout.html" class="btn btn-accent btn-block" style="margin-top:var(--space-lg);">
+    <button id="checkoutBtn" class="btn btn-accent btn-block" style="margin-top:var(--space-lg);">
       Proceed to Checkout →
-    </a>
+    </button>
     <a href="/products.html" class="btn btn-ghost btn-block" style="margin-top:var(--space-sm);">
       ← Continue Shopping
     </a>
   `;
+
+  // Checkout Button Logic
+  document.getElementById('checkoutBtn').addEventListener('click', async () => {
+    const session = await getSession();
+    if (session) {
+      window.location.href = '/checkout.html';
+    } else {
+      window.location.href = '/auth.html?redirect=/checkout.html';
+    }
+  });
 
   // Event listeners
   cartItems.querySelectorAll('.qty-minus').forEach(btn => {

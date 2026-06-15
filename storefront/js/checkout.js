@@ -5,8 +5,15 @@
 import { initPage } from './components.js';
 import { supabase } from './supabase.js';
 import { getCart, getCartTotal, clearCart, formatPrice, showToast } from './cart.js';
+import { getSession, getProfile } from './auth.js';
 
 initPage();
+
+getSession().then(session => {
+  if (!session) {
+    window.location.href = '/auth.html?redirect=/checkout.html';
+  }
+});
 
 function renderOrderSummary() {
   const cart = getCart();
@@ -41,6 +48,16 @@ function renderOrderSummary() {
   if (window.innerWidth <= 768) {
     form.style.gridTemplateColumns = '1fr';
   }
+
+  // Pre-fill profile
+  getProfile().then(profile => {
+    if (profile) {
+      document.getElementById('name').value = profile.name || '';
+      document.getElementById('phone').value = profile.phone || '';
+      document.getElementById('address').value = profile.address || '';
+      document.getElementById('city').value = profile.city || '';
+    }
+  });
 }
 
 // Handle form submission
@@ -78,9 +95,17 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
         .update({ name, address, city })
         .eq('id', userId);
     } else {
+      // Check if logged in to link auth_id
+      const profile = await getProfile();
+      
+      const insertData = { name, phone, address, city };
+      if (profile && profile.auth_id) {
+        insertData.auth_id = profile.auth_id;
+      }
+
       const { data: newUser, error: userError } = await supabase
         .from('users')
-        .insert({ name, phone, address, city })
+        .insert(insertData)
         .select('id')
         .single();
 

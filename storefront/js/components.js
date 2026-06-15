@@ -4,6 +4,7 @@
 
 import { updateCartBadge } from './cart.js';
 import { openGeneralWhatsApp } from './whatsapp.js';
+import { getSession, logout } from './auth.js';
 
 const CATEGORY_LABELS = {
   fan: 'Fans',
@@ -25,12 +26,32 @@ function getActivePage() {
   return '';
 }
 
-export function renderNavbar() {
+export async function renderNavbar() {
   const active = getActivePage();
+  const session = await getSession();
   
   const nav = document.createElement('nav');
   nav.className = 'navbar';
   nav.id = 'mainNavbar';
+  
+  let authMenu = `
+    <li><a href="/auth.html" class="btn btn-outline btn-sm" style="margin-left:var(--space-md);">Login / Sign Up</a></li>
+  `;
+
+  if (session) {
+    const email = session.user.email;
+    const name = email.split('@')[0];
+    authMenu = `
+      <li class="nav-dropdown">
+        <button class="nav-dropdown-toggle">👤 Hi, ${name} ▼</button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="/profile.html">My Profile & Orders</a></li>
+          <li><button id="navLogoutBtn" class="dropdown-item">Logout</button></li>
+        </ul>
+      </li>
+    `;
+  }
+
   nav.innerHTML = `
     <div class="container navbar-inner">
       <a href="/" class="navbar-brand">
@@ -51,11 +72,16 @@ export function renderNavbar() {
             🛒 Cart <span class="cart-count" id="cartCount" data-count="0">0</span>
           </a>
         </li>
+        ${authMenu}
       </ul>
     </div>
   `;
 
   document.body.prepend(nav);
+
+  if (session) {
+    document.getElementById('navLogoutBtn').addEventListener('click', logout);
+  }
 
   // Hamburger toggle
   const toggle = document.getElementById('navToggle');

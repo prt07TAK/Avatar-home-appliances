@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — Avatar Home Appliances</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: var(--space-xl);
+      margin: var(--space-xl) 0;
+    }
+    @media (max-width: 768px) {
+      .profile-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .profile-sidebar {
+      background: var(--bg-card);
+      padding: var(--space-md);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      height: fit-content;
+    }
+    .profile-nav button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: var(--space-md);
+      background: none;
+      border: none;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-bottom: var(--space-xs);
+    }
+    .profile-nav button.active {
+      background: var(--bg-alt);
+      color: var(--primary);
+    }
+    .profile-content {
+      background: var(--bg-card);
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    .order-card {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="profile-layout">
+      
+      <aside class="profile-sidebar">
+        <h3 style="margin-bottom: var(--space-md); padding-left: var(--space-sm);">My Account</h3>
+        <nav class="profile-nav">
+          <button class="active" id="btnTabProfile">👤 Personal Details</button>
+          <button id="btnTabOrders">🧾 Order History</button>
+          <button id="btnLogout" style="color:var(--danger); margin-top:var(--space-lg);">🚪 Logout</button>
+        </nav>
+      </aside>
+
+      <div class="profile-content">
+        
+        <!-- Profile Tab -->
+        <div id="tabProfile" class="tab-pane active">
+          <h2>Personal Details</h2>
+          <p style="color:var(--text-secondary); margin-bottom:var(--space-lg);">Update your address and contact info for faster checkout.</p>
+          
+          <form id="profileForm">
+            <div class="grid" style="grid-template-columns: 1fr 1fr; gap:var(--space-md);">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" id="pName" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-input" id="pPhone" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Email Address (Cannot be changed)</label>
+              <input type="email" class="form-input" id="pEmail" disabled style="background:var(--bg-alt); opacity:0.7;">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Delivery Address</label>
+              <textarea class="form-input" id="pAddress" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">City</label>
+              <input type="text" class="form-input" id="pCity" placeholder="e.g. Sujangarh">
+            </div>
+
+            <div id="profileMsg" style="margin-bottom:var(--space-md);font-weight:500;"></div>
+            <button type="submit" class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
+          </form>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="tabOrders" class="tab-pane">
+          <h2>Order History</h2>
+          <p style="color:var(--text-secondary); margin-bottom:var(--space-lg);">View your past orders and their current status.</p>
+          <div id="ordersList">
+            <div class="skeleton" style="height: 100px; margin-bottom: 10px;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="/js/profile.js"></script>
+</body>
+</html>
