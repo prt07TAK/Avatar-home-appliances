@@ -18,6 +18,7 @@ export default defineConfig({
         orderTracking: resolve(__dirname, 'order-tracking.html'),
         repair: resolve(__dirname, 'repair.html'),
         contact: resolve(__dirname, 'contact.html'),
+        auth: resolve(__dirname, 'auth.html')
       }
     }
   }
