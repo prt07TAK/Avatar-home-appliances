@@ -78,40 +78,17 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
   const total = getCartTotal();
 
   try {
-    // 1. Upsert user (find by phone or create new)
-    let userId;
+    // 1. Update existing user profile
+    const profile = await getProfile();
+    if (!profile) throw new Error("Please log in to place an order.");
     
-    const { data: existingUsers } = await supabase
+    let userId = profile.id;
+    
+    // Update user info
+    await supabase
       .from('users')
-      .select('id')
-      .eq('phone', phone)
-      .limit(1);
-
-    if (existingUsers && existingUsers.length > 0) {
-      userId = existingUsers[0].id;
-      // Update user info
-      await supabase
-        .from('users')
-        .update({ name, address, city })
-        .eq('id', userId);
-    } else {
-      // Check if logged in to link auth_id
-      const profile = await getProfile();
-      
-      const insertData = { name, phone, address, city };
-      if (profile && profile.auth_id) {
-        insertData.auth_id = profile.auth_id;
-      }
-
-      const { data: newUser, error: userError } = await supabase
-        .from('users')
-        .insert(insertData)
-        .select('id')
-        .single();
-
-      if (userError) throw userError;
-      userId = newUser.id;
-    }
+      .update({ name, phone, address, city })
+      .eq('id', userId);
 
     // 2. Create order
     const { data: order, error: orderError } = await supabase
