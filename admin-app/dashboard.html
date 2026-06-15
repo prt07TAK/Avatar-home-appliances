@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Avatar Admin</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <main class="admin-main" id="adminMain">
+      <div class="admin-page-header">
+        <div>
+          <h1>Dashboard</h1>
+          <p style="color:var(--text-secondary);margin:0;">Welcome back! Here's your store overview.</p>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stat-cards" id="statCards">
+        <div class="stat-card">
+          <div class="stat-icon orders">📦</div>
+          <div class="stat-info">
+            <h4>Today's Orders</h4>
+            <div class="stat-value" id="todayOrders">—</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon revenue">💰</div>
+          <div class="stat-info">
+            <h4>This Month Revenue</h4>
+            <div class="stat-value" id="monthRevenue">—</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon pending">⏳</div>
+          <div class="stat-info">
+            <h4>Pending Orders</h4>
+            <div class="stat-value" id="pendingOrders">—</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon service">🔧</div>
+          <div class="stat-info">
+            <h4>New Service Requests</h4>
+            <div class="stat-value" id="newServices">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="admin-table-container">
+        <div class="admin-table-header">
+          <h3>Recent Orders</h3>
+          <a href="/admin/orders.html" class="btn btn-outline btn-sm">View All →</a>
+        </div>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="recentOrdersBody">
+            <tr><td colspan="5" style="text-align:center;padding:var(--space-xl);">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="/js/dashboard.js"></script>
+</body>
+</html>

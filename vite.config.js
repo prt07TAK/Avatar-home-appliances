@@ -1,0 +1,30 @@
+import { resolve } from 'path'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  root: '.',
+  server: {
+    port: 3000,
+    open: true
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        products: resolve(__dirname, 'products.html'),
+        product: resolve(__dirname, 'product.html'),
+        cart: resolve(__dirname, 'cart.html'),
+        checkout: resolve(__dirname, 'checkout.html'),
+        orderTracking: resolve(__dirname, 'order-tracking.html'),
+        repair: resolve(__dirname, 'repair.html'),
+        contact: resolve(__dirname, 'contact.html'),
+        adminLogin: resolve(__dirname, 'admin/index.html'),
+        adminDashboard: resolve(__dirname, 'admin/dashboard.html'),
+        adminProducts: resolve(__dirname, 'admin/products.html'),
+        adminOrders: resolve(__dirname, 'admin/orders.html'),
+        adminServices: resolve(__dirname, 'admin/services.html'),
+        adminCustomers: resolve(__dirname, 'admin/customers.html'),
+      }
+    }
+  }
+})

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — Avatar Home Appliances</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <div class="admin-login">
+    <div class="admin-login-card">
+      <div class="logo">
+        <span class="brand-icon" style="width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.3rem;">⚡</span>
+        Avatar Admin
+      </div>
+      <p class="subtitle">Sign in to manage your store</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="username">Username</label>
+          <input type="text" class="form-input" id="username" placeholder="Enter username" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input type="password" class="form-input" id="password" placeholder="Enter password" required autocomplete="current-password">
+        </div>
+        <p id="loginError" class="form-error" style="display:none;margin-bottom:var(--space-md);"></p>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="loginBtn">
+          Sign In
+        </button>
+      </form>
+
+      <p style="text-align:center;margin-top:var(--space-xl);font-size:var(--text-sm);color:var(--text-light);">
+        <a href="/" style="color:var(--primary);">← Back to Website</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="module" src="/js/login.js"></script>
+</body>
+</html>

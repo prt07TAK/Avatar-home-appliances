@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repair & Servicing — Avatar Home Appliances, Sujangarh</title>
+  <meta name="description" content="Book repair and servicing for fans, TVs, coolers, and sewing machines at Avatar Home Appliances, Sujangarh. Fast and affordable repair service.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1>🔧 Repair & Servicing</h1>
+        <p>Expert repair for all home appliances — fast, affordable, reliable</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container" style="max-width:800px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);margin-bottom:var(--space-2xl);">
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h4>Fast Service</h4>
+            <p>Most repairs completed within 24 hours</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <h4>Affordable</h4>
+            <p>Transparent pricing with no hidden costs</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h4>Warranty</h4>
+            <p>Service warranty on all repairs</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🏠</div>
+            <h4>Home Visit</h4>
+            <p>We come to your doorstep for large appliances</p>
+          </div>
+        </div>
+
+        <div class="card" style="padding:var(--space-xl);" id="repairFormContainer">
+          <h3 style="margin-bottom:var(--space-xl);">📝 Book a Repair</h3>
+          <form id="repairForm">
+            <div class="form-group">
+              <label class="form-label" for="repairName">Your Name *</label>
+              <input type="text" class="form-input" id="repairName" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="repairPhone">Phone Number *</label>
+              <input type="tel" class="form-input" id="repairPhone" placeholder="10-digit mobile number" required pattern="[0-9]{10}">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="applianceType">Appliance Type *</label>
+              <select class="form-select" id="applianceType" required>
+                <option value="">Select appliance type</option>
+                <option value="Fan">Fan (Ceiling / Table / Exhaust)</option>
+                <option value="TV">TV (LED / LCD / Smart)</option>
+                <option value="Cooler">Cooler (Desert / Personal)</option>
+                <option value="Sewing Machine">Sewing Machine</option>
+                <option value="Washing Machine">Washing Machine</option>
+                <option value="Refrigerator">Refrigerator</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="issueDesc">Describe the Issue *</label>
+              <textarea class="form-textarea" id="issueDesc" placeholder="Tell us what's wrong with your appliance..." required></textarea>
+            </div>
+            <div style="display:flex;gap:var(--space-md);flex-wrap:wrap;">
+              <button type="submit" class="btn btn-primary btn-lg" id="submitRepairBtn" style="flex:1;">
+                📋 Submit Request
+              </button>
+              <button type="button" class="btn btn-whatsapp btn-lg" id="whatsappRepairBtn" style="flex:1;">
+                💬 Book via WhatsApp
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Success Message -->
+        <div id="repairSuccess" class="hidden">
+          <div class="confirmation-card">
+            <div class="confirmation-icon">✅</div>
+            <h2>Request Submitted!</h2>
+            <p style="margin-top:var(--space-md);">Your repair request has been received. We'll contact you shortly to schedule the service.</p>
+            <div style="display:flex;gap:var(--space-md);margin-top:var(--space-xl);flex-wrap:wrap;justify-content:center;">
+              <a href="https://wa.me/919649383525" target="_blank" class="btn btn-whatsapp">💬 Also Contact on WhatsApp</a>
+              <a href="/" class="btn btn-outline">Back to Home</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="/js/repair.js"></script>
+</body>
+</html>

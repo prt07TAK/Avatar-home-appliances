@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Avatar Home Appliances</title>
+  <meta name="description" content="Complete your order at Avatar Home Appliances, Sujangarh. Cash on Delivery and UPI available.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1>Checkout</h1>
+        <p>Complete your order details</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="checkoutForm" style="display:grid;grid-template-columns:1fr 360px;gap:var(--space-xl);align-items:start;">
+          <div>
+            <div class="card" style="padding:var(--space-xl);">
+              <h3 style="margin-bottom:var(--space-xl);">📋 Your Details</h3>
+              <form id="orderForm">
+                <div class="form-group">
+                  <label class="form-label" for="name">Full Name *</label>
+                  <input type="text" class="form-input" id="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="phone">Phone Number *</label>
+                  <input type="tel" class="form-input" id="phone" placeholder="10-digit mobile number" required pattern="[0-9]{10}">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="address">Delivery Address *</label>
+                  <textarea class="form-textarea" id="address" placeholder="Enter your full address" required style="min-height:80px;"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="city">City *</label>
+                  <input type="text" class="form-input" id="city" value="Sujangarh" placeholder="Your city" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Payment Method *</label>
+                  <div class="form-radio-group">
+                    <label class="form-radio">
+                      <input type="radio" name="payment" value="cod" checked>
+                      <span>💵 Cash on Delivery</span>
+                    </label>
+                    <label class="form-radio">
+                      <input type="radio" name="payment" value="upi">
+                      <span>📱 UPI Payment</span>
+                    </label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-accent btn-lg btn-block" id="placeOrderBtn">
+                  Place Order
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="cart-summary" id="orderSummary">
+            <!-- Loaded via JS -->
+          </div>
+        </div>
+
+        <!-- Order Confirmation -->
+        <div id="orderConfirmation" class="hidden">
+          <div class="confirmation-card">
+            <div class="confirmation-icon">✅</div>
+            <h2>Order Placed!</h2>
+            <p style="margin-top:var(--space-md);">Your order has been placed successfully.</p>
+            <div style="background:var(--bg-alt);border-radius:var(--radius-md);padding:var(--space-lg);margin:var(--space-xl) 0;text-align:left;">
+              <p style="margin-bottom:var(--space-sm);"><strong>Order ID:</strong> <span id="confirmOrderId"></span></p>
+              <p style="margin-bottom:var(--space-sm);"><strong>Total:</strong> <span id="confirmTotal"></span></p>
+              <p style="margin:0;"><strong>Payment:</strong> <span id="confirmPayment"></span></p>
+            </div>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);">
+              You can track your order using your phone number and order ID.
+            </p>
+            <div style="display:flex;gap:var(--space-md);margin-top:var(--space-xl);flex-wrap:wrap;justify-content:center;">
+              <a href="/order-tracking.html" class="btn btn-primary">Track Order</a>
+              <a href="/products.html" class="btn btn-outline">Continue Shopping</a>
+              <a href="https://wa.me/919649383525" target="_blank" class="btn btn-whatsapp">💬 WhatsApp Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="/js/checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products — Avatar Home Appliances, Sujangarh</title>
+  <meta name="description" content="Browse fans, TVs, coolers, cooler parts, and sewing machines at Avatar Home Appliances. Best prices in Sujangarh with home delivery.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1>Our Products</h1>
+        <p>Quality home appliances at the best prices in Sujangarh</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: var(--space-xl);">
+      <div class="container">
+        <div class="products-toolbar">
+          <div class="filter-pills" id="filterPills">
+            <button class="filter-pill active" data-category="all">All</button>
+            <button class="filter-pill" data-category="fan">🌀 Fans</button>
+            <button class="filter-pill" data-category="tv">📺 TVs</button>
+            <button class="filter-pill" data-category="cooler">❄️ Coolers</button>
+            <button class="filter-pill" data-category="cooler_parts">🔧 Cooler Parts</button>
+            <button class="filter-pill" data-category="sewing_machine">🧵 Sewing Machines</button>
+          </div>
+          <div class="search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search products..." aria-label="Search products">
+          </div>
+        </div>
+
+        <p id="resultsCount" style="font-size:var(--text-sm);color:var(--text-light);margin-bottom:var(--space-lg);"></p>
+
+        <div class="grid grid-4" id="productsGrid">
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="/js/products.js"></script>
+</body>
+</html>
