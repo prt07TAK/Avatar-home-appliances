@@ -30,6 +30,7 @@ function closeModal() {
   backdrop.classList.remove('active');
   document.getElementById('productForm').reset();
   document.getElementById('productId').value = '';
+  currentCroppedBlob = null;
 }
 
 document.getElementById('modalClose').addEventListener('click', closeModal);
@@ -138,6 +139,7 @@ function editProduct(id) {
   document.getElementById('pStock').value = product.stock;
   document.getElementById('pImageFile').value = ''; // Reset file input
   currentEditingImageUrl = product.image_url || '';
+  currentCroppedBlob = null;
   document.getElementById('pDescription').value = product.description || '';
   document.getElementById('pFeatured').checked = product.is_featured;
 
@@ -173,17 +175,15 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
   let finalImageUrl = id ? currentEditingImageUrl : null;
 
   try {
-    // 1. Handle file upload if a file was selected
-    const fileInput = document.getElementById('pImageFile');
-    if (fileInput.files && fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-      const fileExt = file.name.split('.').pop();
+    // 1. Handle file upload if an image was cropped
+    if (currentCroppedBlob) {
+      const fileExt = currentCroppedBlob.type.split('/')[1] || 'png';
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
       const filePath = `public/${fileName}`;
 
       const { error: uploadError } = await supabase.storage
         .from('product-images')
-        .upload(filePath, file);
+        .upload(filePath, currentCroppedBlob, { contentType: currentCroppedBlob.type });
 
       if (uploadError) throw uploadError;
 
@@ -245,6 +245,84 @@ document.getElementById('productSearch').addEventListener('input', (e) => {
       : allProducts;
     renderProducts(filtered);
   }, 300);
+});
+// ==========================================
+// Cropper.js Integration
+// ==========================================
+let cropper = null;
+let currentCroppedBlob = null;
+const cropModal = document.getElementById('cropModal');
+const cropImage = document.getElementById('cropImage');
+const fileInput = document.getElementById('pImageFile');
+
+fileInput.addEventListener('change', (e) => {
+  const files = e.target.files;
+  if (!files || files.length === 0) return;
+  const file = files[0];
+  if (/^image\/\w+/.test(file.type)) {
+    cropImage.src = URL.createObjectURL(file);
+    cropModal.classList.add('active');
+    
+    // Destroy previous cropper if exists
+    if (cropper) {
+      cropper.destroy();
+    }
+    
+    // Initialize cropper after a tiny delay so modal layout resolves
+    setTimeout(() => {
+      cropper = new Cropper(cropImage, {
+        viewMode: 0, // Allows zooming out beyond the image bounds
+        autoCropArea: 1,
+        dragMode: 'move' // Makes it easy to drag the image around
+      });
+    }, 100);
+  } else {
+    showToast('Please select an image file', 'error');
+  }
+});
+
+function closeCropModal() {
+  cropModal.classList.remove('active');
+  if (cropper) {
+    cropper.destroy();
+    cropper = null;
+  }
+  cropImage.src = '';
+}
+
+document.getElementById('cropModalClose').addEventListener('click', () => {
+  closeCropModal();
+  fileInput.value = ''; // Reset file input
+});
+
+document.getElementById('cancelCropBtn').addEventListener('click', () => {
+  closeCropModal();
+  fileInput.value = ''; // Reset file input
+});
+
+document.getElementById('zoomInBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  if (cropper) cropper.zoom(0.1);
+});
+
+document.getElementById('zoomOutBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  if (cropper) cropper.zoom(-0.1);
+});
+
+document.getElementById('applyCropBtn').addEventListener('click', () => {
+  if (!cropper) return;
+  cropper.getCroppedCanvas({
+    width: 800,
+    height: 600,
+    fillColor: '#fff',
+    imageSmoothingEnabled: true,
+    imageSmoothingQuality: 'high',
+  }).toBlob((blob) => {
+    currentCroppedBlob = blob;
+    closeCropModal();
+    showToast('Image cropped. Click Save Product to apply.');
+  }, 'image/jpeg', 0.9);
 });
 
 loadProducts();
